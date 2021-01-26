@@ -9,7 +9,14 @@ Doist Front-End Developer Test Project - a news reader leveraging the [Hacker Ne
 ## Development Mode
 - Run `npm start`
 
-## Dependencies
+## Boilerplate
+- [create-react-app](https://create-react-app.dev/)
+
+## Additional Dependencies (not inluded with Create-React-App)
 - [Husky](https://typicode.github.io/husky/#/): pre-commit hooks
 - [Prettier](https://prettier.io/): code formatting
 - [styled-components](https://styled-components.com/docs): CSS-in-JS
+
+### Dev Dependencies 
+- enzyme
+- enzyme-adapter-react-16
