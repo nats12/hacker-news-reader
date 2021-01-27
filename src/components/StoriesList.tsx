@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import Story from "./Story";
 import * as APIHelper from "../helpers/api";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -12,9 +12,10 @@ import { colours } from "../theme/colours";
  * @returns
  */
 const StoriesList = () => {
-  const [stories, setStories] = React.useState<any>([]);
-  const [fetchedIndex, setFetchedIndex] = React.useState<number>(0);
-  const [isFetchingItems, setIsFetchingItems] = React.useState<boolean>(false);
+  const [stories, setStories] = useState<any>([]);
+  const [fetchedIndex, setFetchedIndex] = useState<number>(0);
+  const [error, setError] = React.useState(false);
+  const [isFetchingItems, setIsFetchingItems] = useState<boolean>(false);
   const storyIds = useRef([]);
 
   const allStories =
@@ -45,22 +46,22 @@ const StoriesList = () => {
       storyIds.current
         .slice(fetchedIndex, fetchedIndex + 20)
         .forEach((id: number) => {
-          try {
-            APIHelper.fetchItem(id)
-              .then((response: any) => {
-                return response.json();
-              })
-              .then((story: any) => {
-                if (storyIsValid(story)) {
-                  setStories((str: any) => str.concat(story));
-                }
-              })
-              .catch((err: any) => {
-                throw err;
-              });
-          } catch (err) {
-            return <InfoHeading colour={colours.orange}>API Error</InfoHeading>;
-          }
+          APIHelper.fetchItem(id)
+            .then((response: any) => {
+              if (response.status !== 200) {
+                throw Error("API Error");
+              }
+
+              return response.json();
+            })
+            .then((story: any) => {
+              if (storyIsValid(story)) {
+                setStories((str: any) => str.concat(story));
+              }
+            })
+            .catch((err: any) => {
+              setError(true);
+            });
         });
     }
 
@@ -70,34 +71,37 @@ const StoriesList = () => {
 
   useEffect(() => {
     const fetchNewStories = async () => {
-      try {
-        APIHelper.fetchNewStories()
-          .then((response: any) => {
-            return response.json();
-          })
-          .then((newStoriesIds: any) => {
-            storyIds.current = newStoriesIds;
-            getMoreStories();
-          })
-          .catch((err: any) => {
-            throw err;
-          });
-      } catch (err) {
-        return <InfoHeading colour={colours.orange}>API Error</InfoHeading>;
-      }
+      APIHelper.fetchNewStories()
+        .then((response: any) => {
+          if (response.status !== 200) {
+            throw Error("API Error");
+          }
+          return response.json();
+        })
+        .then((newStoriesIds: any) => {
+          storyIds.current = newStoriesIds;
+          getMoreStories();
+        })
+        .catch((err) => {
+          setError(true);
+        });
     };
 
     fetchNewStories();
     setFetchedIndex(0);
   }, []);
 
-  if (!storyIds) {
-    return <InfoHeading colour={colours.orange}>API Error</InfoHeading>;
+  if (error) {
+    return (
+      <InfoHeading data-test="component-error" colour={colours.orange}>
+        API Error
+      </InfoHeading>
+    );
   }
 
-  if (stories.length === 0) {
+  if (!allStories.length) {
     return (
-      <InfoHeading colour={"black"} data-test="component-loading">
+      <InfoHeading colour={"black"} data-test="component-stories-list">
         LOADING...
       </InfoHeading>
     );

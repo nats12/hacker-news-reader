@@ -6,21 +6,21 @@ import * as testUtils from "../testUtils";
 
 configure({ adapter: new Adapter() });
 
-const setup = (stories: Array) => {
-  const mockUseState = jest.fn().mockReturnValue([stories, jest.fn()]);
+const setup = (error: boolean) => {
+  const mockUseState = jest.fn().mockReturnValue([error, jest.fn()]);
 
   React.useState = mockUseState;
 
   const wrapper = shallow(<StoriesList />);
+
   return wrapper;
 };
 
 describe("renders", () => {
   let wrapper: any;
-  const stories = [{ id: 11111 }, { id: 22222 }];
 
   beforeEach(() => {
-    wrapper = setup(stories);
+    wrapper = setup(false);
   });
 
   test("StoriesList renders without error", () => {
@@ -28,20 +28,21 @@ describe("renders", () => {
       wrapper,
       "component-stories-list"
     );
+
     expect(component.length).toBe(1);
   });
 
   test("ErrorComponent doesn't render", () => {
-    const component = testUtils.findByTestAttr(wrapper, "component-loading");
+    const component = testUtils.findByTestAttr(wrapper, "component-error");
     expect(component.length).toBe(0);
   });
 });
 
-describe("Stories is empty", () => {
+describe("StoriesList encounters an error", () => {
   let wrapper: any;
 
   beforeEach(() => {
-    wrapper = setup([]);
+    wrapper = setup(true);
   });
 
   test("StoriesList doesn't render", () => {
@@ -53,7 +54,7 @@ describe("Stories is empty", () => {
   });
 
   test("ErrorComponent renders", () => {
-    const component = testUtils.findByTestAttr(wrapper, "component-loading");
+    const component = testUtils.findByTestAttr(wrapper, "component-error");
     expect(component.length).toBe(1);
   });
 });
