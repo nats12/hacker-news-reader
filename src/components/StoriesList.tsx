@@ -6,6 +6,7 @@ import { IStory } from "../interfaces/IStory";
 import InfoHeading from "./headings/InfoHeading";
 import { colours } from "../theme/colours";
 import * as DatesHelper from "../helpers/dates";
+
 /**
  *
  *
@@ -115,9 +116,7 @@ const StoriesList = () => {
         dataLength={stories.length}
         next={getMoreStories}
         hasMore={stories[stories.length - 1] !== 1}
-        loader={
-          <h4 style={{ backgroundColor: "red" }}>Loading more stories...</h4>
-        }
+        loader={<InfoHeading>Loading...</InfoHeading>}
         endMessage={<p>No more stories, you have seen it all.</p>}
       >
         {allStories}

@@ -19,6 +19,10 @@ const StoryRow = styled.div`
     text-decoration: none;
     color: ${colours.dark_grey};
     font-weight: lighter;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   small {
