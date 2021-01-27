@@ -16,7 +16,8 @@ Doist Front-End Developer Test Project - a news reader leveraging the [Hacker Ne
 - [Husky](https://typicode.github.io/husky/#/): pre-commit hooks
 - [Prettier](https://prettier.io/): code formatting
 - [styled-components](https://styled-components.com/docs): CSS-in-JS
+- [react-infinite-scroll-component](https://react-infinite-scroll-component.netlify.app/?path=/story/*): inifite scrolling
+- [moment](https://momentjs.com/): for date and time manipulation
 
 ### Dev Dependencies 
-- enzyme
-- enzyme-adapter-react-16
+- enzyme & enzyme-adapter-react-16: for testing with Jest

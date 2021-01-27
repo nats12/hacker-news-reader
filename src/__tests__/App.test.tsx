@@ -11,8 +11,11 @@ const setup = (state = {}) => {
   return wrapper;
 };
 
-test("App renders without error", () => {
+describe("renders", () => {
   const wrapper = setup({});
-  const component = testUtils.findByTestAttr(wrapper, "component-app");
-  expect(component.length).toBe(1);
+
+  test("App renders without error", () => {
+    const component = testUtils.findByTestAttr(wrapper, "component-app");
+    expect(component.length).toBe(1);
+  });
 });
