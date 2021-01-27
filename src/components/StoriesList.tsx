@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import { IStory } from "../interfaces/IStory";
 import InfoHeading from "./headings/InfoHeading";
 import { colours } from "../theme/colours";
-
+import * as DatesHelper from "../helpers/dates";
 /**
  *
  *
@@ -18,9 +18,11 @@ const StoriesList = () => {
   const [isFetchingItems, setIsFetchingItems] = useState<boolean>(false);
   const storyIds = useRef([]);
 
+  const sortedByDesc = DatesHelper.orderByDesc(stories);
+
   const allStories =
-    stories &&
-    stories.map((story: IStory) => <Story key={story.id} story={story} />);
+    sortedByDesc &&
+    sortedByDesc.map((story: IStory) => <Story key={story.id} story={story} />);
 
   /**
    * Checks a story to see if its valid.
