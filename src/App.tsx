@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import styled from "styled-components";
 import { Button } from "./components/buttons/Button";
 import Header from "./components/Header";
 import ToastNotification from "./components/notifications/ToastNotification";
@@ -33,10 +34,13 @@ function App() {
 
   return (
     <div className="App" data-test="component-app">
+      <ToastNotification className="warning" position={{ top: "20px" }}>
+        <p>This app is using offline-first services.</p>
+      </ToastNotification>
       <Header />
       <StoriesList />
       {newVersionAvailable ? (
-        <ToastNotification>
+        <ToastNotification position={{ bottom: "20px" }}>
           <p>A new version is available!</p>
           <Button onClick={updateServiceWorker}>REFRESH</Button>
         </ToastNotification>

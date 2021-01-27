@@ -51,10 +51,6 @@ const StoriesList = () => {
         .forEach((id: number) => {
           APIHelper.fetchItem(id)
             .then((response: any) => {
-              if (response.status !== 200) {
-                throw Error("API Error");
-              }
-
               return response.json();
             })
             .then((story: any) => {
@@ -76,9 +72,6 @@ const StoriesList = () => {
     const fetchNewStories = async () => {
       APIHelper.fetchNewStories()
         .then((response: any) => {
-          if (response.status !== 200) {
-            throw Error("API Error");
-          }
           return response.json();
         })
         .then((newStoriesIds: any) => {

@@ -2,17 +2,12 @@ import React, { ReactNode } from "react";
 import styled from "styled-components";
 import { colours } from "../../theme/colours";
 
-const ToastNotificationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Toast = styled.div`
+const Toast = styled.div<IToast>`
   background: ${colours.info_blue};
   color: white;
   position: absolute;
-  bottom: 20px;
+  bottom: ${(props) => props.position.bottom ?? "inherit"};
+  top: ${(props) => props.position.top ?? "inherit"};
   z-index: 5000;
   width: 95%;
   padding: 15px;
@@ -20,18 +15,56 @@ const Toast = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
+  visibility: hidden;
+`;
+
+const ToastNotificationContainer = styled.div<any>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  ${Toast} {
+    visibility: hidden;
+    opacity: 0;
+    animation: autoHide ease-in 4s;
+  }
+
+  @keyframes autoHide {
+    0% {
+      opacity: 1;
+      visibility: visible;
+      overflow: hidden;
+    }
+    40% {
+      opacity: 1;
+      visibility: visible;
+      overflow: hidden;
+    }
+    80% {
+      opacity: 1;
+      visibility: visible;
+      overflow: hidden;
+    }
+    100% {
+      opacity: 0;
+      visibility: hidden;
+      overflow: hidden;
+    }
+  }
 `;
 
 interface IToast {
   props?: { children?: ReactNode };
   context?: any;
   colour?: string;
+  className?: string;
+  position: { bottom?: string | number; top?: string | number };
 }
 
 const ToastNotification: React.ElementType<IToast> = (props) => {
   return (
     <ToastNotificationContainer>
-      <Toast>{props.children}</Toast>
+      <Toast {...props}>{props.children}</Toast>
     </ToastNotificationContainer>
   );
 };
