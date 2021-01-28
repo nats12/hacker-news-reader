@@ -18,6 +18,8 @@ To test the app's offline mode, it must run on a production build. To kick off a
 - Run `npm run build`
 - Run `serve -s build`
 
+The app will run on [localhost:5000](http://localhost:5000/)
+
 ## Boilerplate
 - [create-react-app](https://create-react-app.dev/docs/making-a-progressive-web-app/) (as a progressive web app)
 
