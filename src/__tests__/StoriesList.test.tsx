@@ -6,6 +6,14 @@ import * as testUtils from "../testUtils";
 
 configure({ adapter: new Adapter() });
 
+/**
+ * setup
+ *
+ * Setup function for the StoriesList component tests.
+ *
+ * @param {boolean} error True or false depending on whether an error has been detected.
+ * @returns wrapper
+ */
 const setup = (error: boolean) => {
   const mockUseState = jest.fn().mockReturnValue([error, jest.fn()]);
 

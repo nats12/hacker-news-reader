@@ -6,6 +6,15 @@ import * as testUtils from "../testUtils";
 
 configure({ adapter: new Adapter() });
 
+/**
+ * setup
+ *
+ * Setup function for the App component tests.
+ *
+ * @param {boolean} [isInProduction=false] True or false flag depending on whether the app is running in a production environment.
+ * @param {boolean} [newVersionAvailable=false] True or false depending on whether a new version of the app's content has been detected.
+ * @returns wrapper
+ */
 const setup = (
   isInProduction: boolean = false,
   newVersionAvailable: boolean = false
