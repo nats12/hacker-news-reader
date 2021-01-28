@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 import { colours } from "../../theme/colours";
 
@@ -55,13 +55,21 @@ const ToastNotificationContainer = styled.div<any>`
 
 interface IToast {
   props?: { children?: ReactNode };
+  children: ReactElement;
   context?: any;
   colour?: string;
   className?: string;
   position: { bottom?: string | number; top?: string | number };
 }
-
-const ToastNotification: React.ElementType<IToast> = (props) => {
+/**
+ * ToastNotification
+ *
+ * Toast notification used to alert the user about certain conditions.
+ *
+ * @param {IToast} props
+ * @returns {ReactElement} ToastNotificationContainer
+ */
+const ToastNotification: React.ElementType = (props: IToast): ReactElement => {
   return (
     <ToastNotificationContainer>
       <Toast {...props}>{props.children}</Toast>

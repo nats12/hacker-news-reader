@@ -1,24 +1,29 @@
-import React, { ReactNode } from "react";
+import React, { ReactElement, ReactNode } from "react";
 import styled from "styled-components";
 
-const InfoHeadingContainer = styled.div<any>`
+const InfoHeadingContainer = styled.div<IInfoHeading>`
   display: flex;
   justify-content: center;
   align-items: center;
   color: ${(props) => props.colour ?? "black"};
 `;
+
 interface IInfoHeading {
   props?: { children?: ReactNode };
+  children: ReactElement;
   context?: any;
   colour?: string;
 }
 
 /**
  * InfoHeading
- * A styled h1
- * @param props
+ *
+ * Dynamic and resuable styled h1 header to display information.
+ *
+ * @param {IInfoHeading} props
+ * @returns {ReactElement} InfoHeadingContainer
  */
-const InfoHeading: React.FC<IInfoHeading> = (props) => {
+const InfoHeading: React.ElementType = (props: IInfoHeading): ReactElement => {
   return (
     <InfoHeadingContainer colour={props.colour}>
       <h1>{props.children}</h1>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { colours } from "../theme/colours";
 import { devices } from "../theme/devices";
@@ -23,6 +23,10 @@ const StoryRow = styled.div`
     &:hover {
       text-decoration: underline;
     }
+    &:visited,
+    &:active {
+      text-decoration: none;
+    }
   }
 
   small {
@@ -40,10 +44,18 @@ const StoryContainer = styled.div`
 `;
 
 /**
- * Story component - displaying a single story
- * @param story The individual story to be rendered
+ * Story
+ *
+ * Displaying an individual story within a styled component
+ *
+ * @param {{ story: IStory }} { story }
+ * @returns {ReactElement} StoryRow
  */
-const Story = ({ story }: { story: IStory }) => {
+const Story: React.ElementType = ({
+  story,
+}: {
+  story: IStory;
+}): ReactElement => {
   return (
     <StoryRow>
       <StoryContainer>

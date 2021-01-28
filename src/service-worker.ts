@@ -87,7 +87,7 @@ self.addEventListener("message", (event) => {
 // Any other custom service worker logic can go here.
 
 // Whenever the application starts up, open the cache and add all resources
-self.addEventListener("install", function (event) {
+self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function (cache) {
       return cache.addAll(resourcesToCache);
@@ -96,7 +96,7 @@ self.addEventListener("install", function (event) {
 });
 
 // Remove older cache to ensure content in the cache is the most recent and relevant ones
-self.addEventListener("activate", function (event) {
+self.addEventListener("activate", (event) => {
   event.waitUntil(
     caches.keys().then(function (cacheNames) {
       return Promise.all(

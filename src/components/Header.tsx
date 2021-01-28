@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import styled from "styled-components";
 import { colours } from "../theme/colours";
 
@@ -14,9 +14,13 @@ const HeaderTitle = styled.h1`
 `;
 
 /**
- * Header component - displaying the header
+ * Header
+ *
+ * Displays the web app's header containing its title and strapline
+ *
+ * @returns {ReactElement} HeaderContainer
  */
-const Header: React.FC = () => {
+const Header: React.ElementType = (): ReactElement => {
   return (
     <HeaderContainer>
       <HeaderTitle>Hacker News Reader</HeaderTitle>

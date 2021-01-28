@@ -1,9 +1,11 @@
 import config from "../config";
 
 /**
- * Fetches all new stories from the Hacker News Api
+ * fetchNewStories
  *
- * @returns response
+ * Fetches the story ids of the latest 500 stories from the Hacker News API.
+ *
+ * @returns {object} response
  */
 export const fetchNewStories = async () => {
   const endpoint = `${config.endpoint}/newstories.${config.endpoint_suffix}`;
@@ -14,10 +16,13 @@ export const fetchNewStories = async () => {
 };
 
 /**
- * Fetches a single item from the Hacker News Api using its id
+ * fetchItem
  *
- * @param {number} itemId
- * @returns response
+ * Fetches an individual item from the Hacker News API.
+ * An item could be of type: story, job, comment, poll or pollopt.
+ *
+ * @param {number} itemId The item's id.
+ * @returns {object} response
  */
 export const fetchItem = async (itemId: number) => {
   const endpoint = `${config.endpoint}/item/${itemId}.${config.endpoint_suffix}`;

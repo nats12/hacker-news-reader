@@ -9,17 +9,21 @@ import { IStory } from "../interfaces/IStory";
  * @returns difference in number of days/hours/minutes/seconds from the time now
  * and the time that the story was posted
  */
-export const toHumanReadableDate = (unix: number) => {
+export const toHumanReadableDate: Function = (unix: number): string => {
   const date = moment.unix(unix);
   return date.utc().fromNow();
 };
 
 /**
- * Orders stories by descending posted at times
+ * orderByDesc
+ *
+ * Orders stories in descending order by the time they were posted.
  *
  * @param {Array<IStory>} stories
- * @returns
+ * @returns {Array<IStory>} An array of sorted stories.
  */
-export const orderByDesc = (stories: Array<IStory>) => {
+export const orderByDesc: Function = (
+  stories: Array<IStory>
+): Array<IStory> => {
   return stories.sort((s1: IStory, s2: IStory) => s2.time - s1.time);
 };

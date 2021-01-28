@@ -1,11 +1,20 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, ReactElement } from "react";
 import { Button } from "./components/buttons/Button";
 import Header from "./components/Header";
 import ToastNotification from "./components/notifications/ToastNotification";
 import StoriesList from "./components/StoriesList";
 import * as serviceWorker from "./serviceWorkerRegistration";
 
-function App() {
+/**
+ * App
+ *
+ * The web app's parent component loading all others.
+ * This component is also responsible for checking for new content
+ * when the app is being used offline.
+ *
+ * @returns {ReactElement}
+ */
+function App(): ReactElement {
   const [newVersionAvailable, setNewVersionAvailable] = React.useState<boolean>(
     false
   );
@@ -14,11 +23,28 @@ function App() {
   );
   const isInProduction = React.useRef<boolean>(false);
 
-  const onServiceWorkerUpdate = (registration: ServiceWorkerRegistration) => {
+  /**
+   * onServiceWorkerUpdate
+   *
+   * This function takes in a ServiceWorkerRegistration and updates its local state
+   * to show that a new version of the content is available.
+   *
+   * @param {ServiceWorkerRegistration} registration The service worker's registration.
+   */
+  const onServiceWorkerUpdate = (
+    registration: ServiceWorkerRegistration
+  ): void => {
     setNewVersionAvailable(true);
     setWaitingWorker(registration.waiting);
   };
 
+  /**
+   * updateServiceWorker
+   *
+   * This function posts a message to the waiting service worker to prompt it
+   * to skip waiting and reloads the page to show new content.
+   *
+   */
   const updateServiceWorker = () => {
     waitingWorker?.postMessage({ type: "SKIP_WAITING" });
     setNewVersionAvailable(false);
