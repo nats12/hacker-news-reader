@@ -78,9 +78,6 @@ const StoriesList: React.ElementType = (): ReactElement => {
       sliced.forEach(async (id: number) => {
         await APIHelper.fetchItem(id)
           .then((response: any) => {
-            if (!response) {
-              throw Error("API Error"); // catching any incorrect/broken API urls
-            }
             return response.json();
           })
           .then((story: any) => {
@@ -110,9 +107,6 @@ const StoriesList: React.ElementType = (): ReactElement => {
       isFetchingItems.current = true;
       await APIHelper.fetchNewStories()
         .then((response: any) => {
-          if (!response) {
-            throw new Error("API Error"); // catching any incorrect/broken API urls
-          }
           return response.json();
         })
         .then((newStoriesIds: any) => {

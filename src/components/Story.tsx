@@ -22,6 +22,7 @@ const StoryRow = styled.div`
 
     &:hover {
       text-decoration: underline;
+      cursor: pointer;
     }
     &:visited,
     &:active {
@@ -33,7 +34,7 @@ const StoryRow = styled.div`
     color: ${colours.dark_grey};
   }
 
-  @media ${devices.laptopL} {
+  @media ${devices.laptop} {
     margin: 40px 200px;
   }
 `;

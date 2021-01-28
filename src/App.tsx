@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, ReactElement } from "react";
+import React, { useState, useEffect, ReactElement } from "react";
 import { Button } from "./components/buttons/Button";
 import Header from "./components/Header";
 import ToastNotification from "./components/notifications/ToastNotification";
@@ -65,8 +65,11 @@ function App(): ReactElement {
           data-test="component-offline-warning"
           className="warning"
           position={{ top: "20px" }}
+          fadeOut={true}
+          remainInView={false}
+          fixed={false}
         >
-          <p>This app is using offline-first services.</p>
+          <p>This app is working offline.</p>
         </ToastNotification>
       )}
       <Header />
@@ -75,6 +78,9 @@ function App(): ReactElement {
         <ToastNotification
           data-test="component-new-version"
           position={{ bottom: "20px" }}
+          fadeOut={false}
+          remainInView={true}
+          fixed={true}
         >
           <p>A new version is available!</p>
           <Button className="refresh-button" onClick={updateServiceWorker}>
