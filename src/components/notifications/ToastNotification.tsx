@@ -11,6 +11,8 @@ const Toast = styled.div<IToast>`
   top: ${(props) => props.position?.top ?? "inherit"};
   z-index: 5000;
   width: 95%;
+  max-width: 500px;
+  max-height: 80px;
   padding: 15px;
   border-radius: 5px;
   box-sizing: border-box;
